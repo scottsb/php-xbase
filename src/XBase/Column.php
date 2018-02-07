@@ -55,7 +55,6 @@ class Column
             case Record::DBFFIELD_TYPE_DATE : return 8;
             case Record::DBFFIELD_TYPE_DATETIME : return 8;
             case Record::DBFFIELD_TYPE_LOGICAL : return 1;
-            case Record::DBFFIELD_TYPE_MEMO : return 10;
             default : return $this->length;
         }
     }

@@ -110,7 +110,8 @@ class Record
 
     public function forceGetString($columnName)
     {
-        $data = trim($this->choppedData[$columnName]);
+        // TODO: Removed trim() to fix memo lookup, but this may break other calls to this function. Confirm & refactor if needed.
+        $data = $this->choppedData[$columnName];
 
         if ($this->table->getConvertFrom()) {
             $data = iconv($this->table->getConvertFrom(), 'utf-8', $data);
@@ -196,12 +197,8 @@ class Record
     public function getMemo($columnName)
     {
         $data = $this->forceGetString($columnName);
-        if($data && strlen($data) == 2) {
-            $pointer = unpack('s', $data)[1];
-            return $this->memoFile->get($pointer);
-        } else {
-            return $data;
-        }
+        $pointer = unpack('s', $data)[1];
+        return $this->memoFile->get($pointer);
     }
 
     public function getDouble($columnName)
